@@ -1,6 +1,8 @@
 dnf module disable nginx -y
 dnf module enable nginx:1.24 -y
+rm -rf /etc/nginx/nginx.conf
 dnf install nginx -y
+
 
 cp nginx.conf /etc/nginx/nginx.conf
 
