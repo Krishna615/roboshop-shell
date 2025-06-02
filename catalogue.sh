@@ -9,6 +9,7 @@ rm -rf /app
 
 useradd roboshop
 
+rm -rf /app
 mkdir /app
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip
@@ -24,7 +25,7 @@ systemctl daemon-reload
 
 dnf install mongodb-mongosh -y
 
-mongosh --host localhost </app/db/master-data.js
+mongosh --host mongo-dev.krishnadevops.shop </app/db/master-data.js
 
 systemctl enable catalogue
 systemctl restart catalogue
