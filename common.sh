@@ -1,5 +1,5 @@
 systemd_setup(){
   systemctl daemon-reload
-  systemctl enable cart
-  systemctl restart cart
+  systemctl enable $component
+  systemctl restart $component
 }
