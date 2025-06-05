@@ -1,14 +1,16 @@
 systemd_setup(){
+  print_head copying the service file
   cp $pwd/$component.service /etc/systemd/system/$component.service
   systemctl daemon-reload
   systemctl enable $component
+  print_head restartig=ng the service
   systemctl restart $component
 }
 artifacts_setup(){
   rm -rf /app
   mkdir /app
   echo $?
-
+  print_head downloading the content
   curl -L -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component-v3.zip
   echo $?
   cd /app
@@ -17,7 +19,7 @@ artifacts_setup(){
 nodejs_setup(){
   dnf module disable nodejs -y
   dnf module enable nodejs:20 -y
-
+  print_head installing the nodejs
   dnf install nodejs -y
   echo $?
 
@@ -29,6 +31,7 @@ nodejs_setup(){
   echo $?
 }
 python_setup(){
+  print_head installing the python
   dnf install python3 gcc python3-devel -y
   echo $?
 
@@ -41,6 +44,7 @@ python_setup(){
   echo $?
 }
 golan_setup(){
+  print_head installing the go lang
   dnf install golang -y
   echo $?
 
@@ -54,6 +58,7 @@ golan_setup(){
   go build
 }
 maven_setup(){
+  print_head installing the maven
   dnf install maven -y
   echo $?
 
