@@ -1,5 +1,5 @@
 component=payment
-spurce common.sh
+source common.sh
 dnf install python3 gcc python3-devel -y
 cp payment.service /etc/systemd/system/payment.service
 useradd roboshop
