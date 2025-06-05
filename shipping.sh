@@ -1,18 +1,7 @@
 component=shipping
 source common.sh
-dnf install maven -y
-cp shipping.service /etc/systemd/system/shipping.service
-useradd roboshop
 
-artifacts_setup
-
-cd /app
-mvn clean package
-mv target/shipping-1.0.jar shipping.jar
-
-
-
-
+maven_setup
 
 dnf install mysql -y
 
