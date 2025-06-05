@@ -5,7 +5,7 @@ systemd_setup(){
   systemctl enable $component
   print_head restartig=ng the service
   systemctl restart $component
-  echo $?
+  exit_status $1
 }
 artifacts_setup(){
   rm -rf /app
@@ -13,21 +13,18 @@ artifacts_setup(){
   echo $?
   print_head downloading the content
   curl -L -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component-v3.zip
-  echo $?
+  exit_status $1
   cd /app
   unzip /tmp/$component.zip
 }
 nodejs_setup(){
   dnf module disable nodejs -y
   dnf module enable nodejs:20 -y
+  exit_status $1
   print_head installing the nodejs
   dnf install nodejs -y
-  echo $?
-  if [ $? -eq 0 ]; then
-    echo -e "\e[32m <<SUCCESS\E[0M"
-  else
-    echo -e "\e[31m <<SUCCESS\E[0M"
-  fi
+  exit_status $1
+
 
 
   useradd roboshop
@@ -35,12 +32,13 @@ nodejs_setup(){
   artifacts_setup
   cd /app
   npm install
-  echo $?
+  exit_status $1
 }
 python_setup(){
   print_head installing the python
+
   dnf install python3 gcc python3-devel -y
-  echo $?
+  exit_status $1
 
   useradd roboshop
 
@@ -48,12 +46,14 @@ python_setup(){
 
   cd /app
   pip3 install -r requirements.txt
-  echo $?
+  exit_status $1
+
 }
 golan_setup(){
   print_head installing the go lang
+
   dnf install golang -y
-  echo $?
+  exit_status $1
 
   useradd roboshop
 
@@ -63,11 +63,12 @@ golan_setup(){
   go mod init $component
   go get
   go build
+  exit_status $1
 }
 maven_setup(){
   print_head installing the maven
   dnf install maven -y
-  echo $?
+  exit_status $1
 
   useradd roboshop
 
@@ -75,6 +76,7 @@ maven_setup(){
 
   cd /app
   mvn clean package
+  exit_status $1
   mv target/$component-1.0.jar $component.jar
 }
 print_head(){
@@ -85,4 +87,13 @@ print_head(){
 }
 log_file=/tmp/roboshop.log
 rm -f $log_file
+
+exit_status(){
+  if [ $1 -eq 0 ]; then
+      echo -e "\e[32m <<SUCCESS\E[0M"
+    else
+      echo -e "\e[31m <<SUCCESS\E[0M"
+    fi
+}
+
 pwd=$(pwd)
