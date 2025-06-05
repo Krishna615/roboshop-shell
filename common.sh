@@ -10,7 +10,7 @@ systemd_setup(){
 artifacts_setup(){
   rm -rf /app
   mkdir /app
-  echo $?
+  exit_status $1
   print_head downloading the content
   curl -L -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component-v3.zip
   exit_status $1
@@ -90,9 +90,9 @@ rm -f $log_file
 
 exit_status(){
   if [ $1 -eq 0 ]; then
-      echo -e "\e[32m <<SUCCESS\E[0M"
+      echo -e "\e[32m <<SUCCESS\e[0M"
     else
-      echo -e "\e[31m <<SUCCESS\E[0M"
+      echo -e "\e[31m <<SUCCESS\e[0M"
     fi
 }
 
