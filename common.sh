@@ -15,3 +15,16 @@ artifacts_setup(){
 
 
 }
+nodejs_setup(){
+  dnf module disable nodejs -y
+  dnf module enable nodejs:20 -y
+
+  dnf install nodejs -y
+  cp $component.service /etc/systemd/system/$component.service
+  useradd roboshop
+
+  artifacts_setup
+
+  cd /app
+  npm install
+}
