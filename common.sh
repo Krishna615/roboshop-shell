@@ -91,9 +91,9 @@ rm -f $log_file
 exit_status(){
   if [ $1 -eq 0 ]; then
       echo -e "\e[32m <<SUCCESS\e[0M"
-    else
+  else
       echo -e "\e[31m <<SUCCESS\e[0M"
-    fi
+  fi
 }
 
 pwd=$(pwd)
