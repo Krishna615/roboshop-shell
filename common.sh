@@ -4,7 +4,7 @@ systemd_setup(){
   systemctl restart $component
 }
 artifacts_setup(){
-  useradd roboshop
+
 
   rm -rf /app
   mkdir /app
@@ -13,6 +13,5 @@ artifacts_setup(){
   cd /app
   unzip /tmp/$component.zip
 
-  cd /app
-  npm install
+
 }
