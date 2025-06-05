@@ -5,6 +5,7 @@ systemd_setup(){
   systemctl enable $component
   print_head restartig=ng the service
   systemctl restart $component
+  echo $?
 }
 artifacts_setup(){
   rm -rf /app
@@ -22,6 +23,12 @@ nodejs_setup(){
   print_head installing the nodejs
   dnf install nodejs -y
   echo $?
+  if [ $? -eq 0 ]; then
+    echo -e "\e[32m <<SUCCESS\E[0M"
+  else
+    echo -e "\e[31m <<SUCCESS\E[0M"
+  fi
+
 
   useradd roboshop
 
