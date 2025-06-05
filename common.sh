@@ -45,3 +45,11 @@ maven_setup(){
   mvn clean package
   mv target/$component-1.0.jar $component.jar
 }
+print_head(){
+  echo -e "\e[36m$*\e[0m"
+  echo "###########################################"
+  echo -e "\e[36m$*\e[0m"
+  echo "########################################"
+}
+log_file=/tmp/roboshop.log
+rm -f $log_file
