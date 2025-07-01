@@ -1,6 +1,6 @@
 systemd_setup(){
   print_head copying the service file
-  cp $component.service /etc/systemd/system/$component.service
+  cp $pwd/$component.service /etc/systemd/system/$component.service
   systemctl daemon-reload
   systemctl enable $component
   print_head restarting the service
